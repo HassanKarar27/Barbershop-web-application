@@ -9,9 +9,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tanstack/react-query": "^4.0.10",
+    "@types/axios": "^0.14.0",
+    "@types/jwt-decode": "^3.1.0",
+    "@types/react-modal": "^3.13.1",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/yup": "^0.29.14",
+    "axios": "^0.27.2",
+    "formik": "^2.2.9",
+    "nuka-carousel": "^5.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-icons": "^4.4.0"
+    "react-icons": "^4.4.0",
+    "react-notifications-component": "^4.0.1",
+    "react-router-dom": "^6.3.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/node": "^18.6.3",

@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface ISection {
-    title: string,
+    title?: string,
     isDark?: boolean,
     children: React.ReactNode
 }
@@ -9,17 +9,17 @@ interface ISection {
 const Section: React.FC<ISection> = (props) => {
 
     return props.isDark ? (
-        <section className={`flex w-full min-h-max py-5 bg-black text-slate-300`}>
+        <section className={`flex w-full min-h-max py-5 bg-gray-900 text-slate-300`}>
             <div className="w-[800px] mx-auto text-center ">
-                <p className="my-3 font-normal text-2xl text-center">{props.title}</p>
+                {props.title && <h2 className="my-3 font-extrabold text-2xl text-center">{props.title}</h2>}
                 {props.children}
             </div>
         </section>
     ) :
         (
             <section className={`flex w-full min-h-max py-5`}>
-                <div className="w-[800px] mx-auto ">
-                    <p className="my-3 font-normal text-2xl text-center">{props.title}</p>
+                <div className="w-[800px] mx-auto text-center ">
+                    {props.title && <h2 className="my-3 font-extrabold text-2xl text-center text-slate-600">{props.title}</h2>}
                     {props.children}
                 </div>
             </section>

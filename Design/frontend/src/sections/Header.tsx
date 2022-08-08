@@ -1,54 +1,52 @@
 import React from "react";
-import { FaAppStore, FaPlaystation } from "react-icons/fa";
+import { FaAppStore, FaPlaystation, FaGlobeAmericas } from "react-icons/fa";
+import { Link, NavLink } from "react-router-dom";
+import { text } from "stream/consumers";
 import Button from "../components/Button";
 
 const Header = () => {
     return (
-        <header id="header" className="flex flex-col bg-black bg-haircut bg-center bg-cover h-96 text-slate-300 to-blue-500">
+        <header id="header" className="flex flex-col bg-black bg-haircut bg-center bg-cover h-96 text-slate-300">
             {/* upper part and Menu */}
             <div className="flex h-16  justify-between px-2 content-center justify-middle">
 
                 <div className="w-16 flex justify-center">
-                    <FaPlaystation className="self-center" size={40} />
+                    <FaGlobeAmericas className="self-center" size={40} />
                 </div>
 
                 <nav className="flex content-center">
                     <ul className="self-center">
-                        <a className="inline-block mx-3 hover:text-blue-600 transition-all" href="#">
+                        <NavLink to="/" className="inline-block mx-3 hover:text-blue-600 transition-all">
                             <li>Home</li>
-                        </a>
-                        <a className="inline-block hover:text-blue-600 transition-all" href="#">
+                        </NavLink>
+                        <NavLink to={"/appointment"} className="inline-block hover:text-blue-600 transition-all">
                             <li>Appointment</li>
-                        </a>
-                        <a className="inline-block mx-3 hover:text-blue-600 transition-all" href="#">
+                        </NavLink>
+                        <NavLink to={"/"} className="inline-block mx-3 hover:text-blue-600 transition-all">
                             <li>Calculate price</li>
-                        </a>
-                        <a className="inline-block mx-3 hover:text-blue-600 transition-all" href="#">
+                        </NavLink>
+                        <NavLink to={"/contact"} className="inline-block mx-3 hover:text-blue-600 transition-all">
                             <li>Contact us</li>
-                        </a>
-                        <a className="inline-block mx-3 hover:text-blue-600 transition-all" href="#">
+                        </NavLink>
+                        <Link to={"/about"} className="inline-block mx-3 hover:text-blue-600 transition-all">
                             <li>About us</li>
-                        </a>
+                        </Link>
                     </ul>
                 </nav>
 
                 <div className=" justify-self-end self-center">
-                    <a href="#" className="mr-2">
-                        Log In
-                    </a>
+                    <Link to={"/login"} className="mr-2 hover:text-blue-500">Log In</Link>
                     |
-                    <a href="#" className="ml-2">
-                        Register
-                    </a>
+                    <Link to={"/register"} className="ml-2 hover:text-blue-500">Register</Link>
                 </div>
 
             </div>
             {/* end upper part Menu */}
             <div className="flex flex-col place-items-center justify-center my-auto">
-                <span className="text-6xl mb-6">
-                    We promise make <span className="font-black">you</span> look <span className="font-extrabold">good</span>!
-                </span>
-                
+                <h1 className="text-7xl text-transparent mb-12 font-extrabold bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text">
+                    Best version of you!
+                </h1>
+
                 <Button title="Make an appointment" />
             </div>
 
