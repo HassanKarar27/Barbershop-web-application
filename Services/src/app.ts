@@ -24,6 +24,14 @@ app.use(
   })
 );
 
+// app.use((req,res,next)=>{
+//   res.setHeader('Access-Control-Allow-Origin','*');
+//   res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
+//   //@ts-ignore
+//   res.setHeader('Access-Control-Allow-Methods','Content-Type','Authorization');
+//   next();
+// })
+
 const userRoute = require("./routes/userRoute");
 const authRoute = require("./routes/authRoute");
 const appointmentRoute = require("./routes/appointmentRoute");

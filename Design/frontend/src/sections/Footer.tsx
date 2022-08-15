@@ -6,7 +6,7 @@ import Section from './Section';
 
 const Footer = () => {
     return (
-        <footer className="bg-gray-900 min-h-[100px] text-slate-200 text-[14px] text-center p-3">
+        <footer className="bg-gray-900 min-h-[160px] h-auto text-slate-200 text-[14px] text-center p-3">
 
             <Section>
                 <div className="flex flex-row gap-9 pb-6">
@@ -35,7 +35,7 @@ const Footer = () => {
                 </div>
 
             </Section>
-            <Link to={""}>Website deigned by Hassan Karar</Link>
+            <div>Website deigned by Hassan Karar</div>
         </footer>
     )
 }

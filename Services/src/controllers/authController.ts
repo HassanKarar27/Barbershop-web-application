@@ -10,7 +10,7 @@ const jwtDecode = require("jwt-decode");
 const db = require("../database/db_config");
 const regexLib = require("../util/regexLibrary");
 
-const jwt_expiration = "5m";
+const jwt_expiration = "183d";
 const jwt_refresh_expiration = "1y";
 
 // Token gen
@@ -27,9 +27,9 @@ export const signIn = async (
     try {
         const { username, password } = req.body;
 
-        if (!username || !password || username === undefined || password === undefined)
+        if (!username || !password)
             return next({ message: "Username and password required!" });
-        
+
         const sql = `select * from users Where username = ?`;
         //@ts-ignore
         db.query(
@@ -84,12 +84,12 @@ export const signIn = async (
                     [currentUser.user_id, refreshToken],
                     (err: QueryError, result: RowDataPacket[]) => {
                         if (err) return next(err);
-                        res.cookie("jwt", refreshToken, {
-                            httpOnly: true,
-                            maxAge: 24 * 60 * 60 * 1000,
-                        });
+                        // res.cookie("jwt", refreshToken, {
+                        //     httpOnly: true,
+                        //     maxAge: 24 * 60 * 60 * 1000,
+                        // });
                         res.status(200).json({
-                            token: token,
+                           // token: token,
                             refreshToken: refreshToken
                         });
                         next();
@@ -108,8 +108,8 @@ export const refreshTokenSignIn = (
     res: express.Response,
     next: express.NextFunction
 ) => {
-     const refreshToken = req.cookies.jwt;
-   //  const refreshToken = req.body.refreshToken;
+     // const refreshToken = req.cookies.jwt;
+     const refreshToken = req.body.refreshToken;
 
     try {
         // Check if the refresh token is not null
@@ -170,8 +170,11 @@ export const logoutSpecificDevice = (
     next: express.NextFunction
 ) => {
     // delete refresh token from  db
-    const refreshToken = req.cookies.jwt;
-   // const refreshToken = req.body.refreshToken;
+    // const refreshToken = req.cookies.jwt;
+    const refreshToken = req.body.refreshToken;
+
+   // const token = req.headers.authorization;
+
     if (!refreshToken) return res.status(204).json({});
 
     const sql = `select * from token_records where refresh_token = '${refreshToken}'`;
@@ -326,7 +329,7 @@ export const verifyUser = async (
     next: express.NextFunction
 ) => {
     try {
-        const headerToken = req.header("Authorization");
+        const headerToken = req.get("Authorization");
         // check whether there is a registered token or not
         if (!headerToken) return next({message: "You are not logged in!!"});
         // verifying the token validity

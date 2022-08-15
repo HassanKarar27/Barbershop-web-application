@@ -1,3 +1,3 @@
 import axios from 'axios'
 
-export const apiUrl = 'http://localhost:5600/api/v1';
+export const axiosHttpClient = axios.create({baseURL: 'http://localhost:5600/api/v1'}) ;

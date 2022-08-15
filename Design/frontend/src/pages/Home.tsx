@@ -46,7 +46,7 @@ const Home = () => {
 
                     {/* <div className="flex flex-wrap justify-between content-between w-full"> */}
 
-                    <Carousel autoplay autoplayReverse>
+                    <Carousel autoplay>
                         <ImageCard
                             title="Razor 310"
                             textPreview="Cool stuff of this current year"

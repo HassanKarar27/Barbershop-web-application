@@ -1,21 +1,21 @@
 import React from 'react'
 import { FaCheck } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
-import Button from '../components/Button';
-import Input from '../components/Input';
-import Footer from '../sections/Footer';
-import HeaderSub from '../sections/HeaderSub';
-import Section from '../sections/Section';
-import { apiUrl } from '../api/api';
-
-// import Notifier
-import 'react-notifications-component/dist/theme.css'
-import { ReactNotifications, Store } from 'react-notifications-component'
 
 import * as Yup from 'yup';
 import axios from 'axios';
 import { Formik, Form, Field } from 'formik';
 import { useMutation } from '@tanstack/react-query';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import Button from '../components/Button';
+import Input from '../components/Input';
+import Footer from '../sections/Footer';
+import HeaderSub from '../sections/HeaderSub';
+import Section from '../sections/Section';
+import { axiosHttpClient } from '../api/api';
 
 
 
@@ -24,47 +24,53 @@ interface MyFormValues {
     password: string;
 }
 
-
-
 const LogIn = () => {
 
-    // const navigate = useNavigate();
+     const navigate = useNavigate();
 
     // object validation form
     const SignInSchema = Yup.object({
-        username: Yup.string().required('Required'),
-        password: Yup.string().required('Required')
+        username: Yup.string().required(),
+        password: Yup.string().required()
     });
 
     // form fields initializer
     const initialValues: MyFormValues = { username: '', password: '' };
 
     const mutation = useMutation(async (login: MyFormValues) => {
-        return await axios.post(`${apiUrl}/auth/signin/`, login);
-    }, ({
-        onSuccess: async (data, variables) => {
-            //  await storage.saveToken(data.data);
-            //  navigate("/home");
-            console.log(data.data);
-        },
-        onError: (error, variable) => {
-           // console.log(error);
+        return await axiosHttpClient.post(`/auth/signin/`, login,
+            // {
+            //     headers: { 'Content-Type': 'application/json' },
+            //     withCredentials: true
+            // }
+        );
+    },
+        ({
+            onSuccess: async (data, variables) => {
+                //  await storage.saveToken(data.data);
+                console.log(data.data);
+                localStorage.setItem('token', JSON.stringify(data.data));
+                navigate("/appointment");
 
-            Store.addNotification({
-                title: "Wonderful!",
-                message: "teodosii@react-notifications-component",
-                type: "success",
-                insert: "top",
-                container: "top-right",
-                animationIn: ["animate__animated", "animate__fadeIn"],
-                animationOut: ["animate__animated", "animate__fadeOut"],
-                dismiss: {
-                  duration: 5000,
-                  onScreen: true
-                }
-              });
-        }
-    }));
+                toast.success("You have been successfully logged in!", {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    progress: undefined
+                });
+            },
+            onError: (error, variable) => {
+                //@ts-ignore
+                toast.error(error.response.data.message, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    progress: undefined
+                });
+            }
+        }));
 
 
     return (
@@ -87,7 +93,6 @@ const LogIn = () => {
                             initialValues={initialValues}
                             validationSchema={SignInSchema}
                             onSubmit={async (values) => {
-
                                 await mutation.mutateAsync({
                                     username: values.username,
                                     password: values.password
@@ -97,23 +102,25 @@ const LogIn = () => {
                             {({ errors, touched }) => (
 
                                 <Form className='text-center flex flex-1 flex-col mx-1'>
-                                    <Field
+                                    <Input
                                         placeholder='Enter your username'
                                         type={"text"}
                                         name={"username"}
                                         className="border-[1px] border-slate-400 border-solid p-3 mb-1 text-center"
+                                        touch={touched.username}
+                                        error={errors.username}
+                                        errMessage={errors.username}
                                     />
-                                    {touched.username && errors.username && <div>{errors.username.toString()}</div>}
 
-                                    <Field
+                                    <Input
                                         placeholder='Enter your password'
                                         type={"password"}
                                         name={"password"}
                                         className="border-[1px] border-slate-400 border-solid p-3 mb-2 text-center"
+                                        touch={touched.password}
+                                        error={errors.password}
+                                        errMessage={errors.password}
                                     />
-                                    {touched.password && errors.password && <div>{errors.password.toString()}</div>}
-
-                                    <br />
 
                                     <div className="flex flex-col gap-2 justify-center content-center">
                                         <Button title={'Log In'} type='submit' />

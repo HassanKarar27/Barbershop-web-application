@@ -1,14 +1,32 @@
-import React from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { FaCalendarDay, FaClock, FaPlusCircle, FaTrash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { QueryClient, useQuery } from '@tanstack/react-query';
+
 import AppointmentCard from '../components/AppointmentCard';
 import Footer from '../sections/Footer';
 import HeaderSub from '../sections/HeaderSub';
 import Section from '../sections/Section';
 
+import AuthContext from '../contexts/authContext';
+
+import dataJson from '../api/data.json';
+import { axiosHttpClient } from '../api/api';
+
+
 const Appointment = () => {
 
+    //@ts-ignore
+    const { auth } = useContext(AuthContext);
+
+    const getAppointments = useQuery(['appointments'], () => axiosHttpClient.get('/appointment/'));
+
+    useEffect(() => {
+        console.log(auth);
+    }, [])
+
     return (
+
         <div className="flex flex-col h-screen">
             <HeaderSub />
 
@@ -16,27 +34,34 @@ const Appointment = () => {
                 <Section title='Make an appointment'>
 
                     <div className="flex flex-col w-full content-center justify-center">
-
                         <FaPlusCircle size={76} className={"text-slate-600 hover:text-slate-800 transition-all duration-300 self-center cursor-pointer"} />
-                    
-                        <AppointmentCard id={1} date={'11-23-2023'} time={'23:45'} completed >
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum blanditiis, officia necessitatibus dolore expedita voluptate temporibus quo eum dignissimos fuga animi pariatur magnam magni incidunt recusandae, natus voluptatum suscipit quam.
-                        </AppointmentCard>
+                    </div>
+                </Section>
 
-                        <AppointmentCard id={2} date={'01-02-2019'} time={'11:11'} completed={false} service={23} >
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        </AppointmentCard>
+                <Section title='Your appointments'>
+                    <div className="flex flex-col w-full content-center justify-center">
 
-                        <AppointmentCard id={2} date={'01-02-2019'} time={'11:11'} completed={false} service={8}>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum blanditiis, officia necessitatibus dolore expedita voluptate temporibus quo eum dignissimos fuga animi pariatu quam.
-                        </AppointmentCard>
+                        {
+                            getAppointments.isLoading ? <div>loading ...</div> :
+                                getAppointments.isError ? <div>Error</div> :
+                                    getAppointments.data.data < 1 ? <h2 className='p-6 w-1/2 self-center bg-slate-100 font-bold text-slate-400'>You have no appointment yet!</h2> :
+                                        getAppointments.data.data.map(
+                                            (appointment: any) => <AppointmentCard
+                                                key={appointment.id}
+                                                id={appointment.id}
+                                                date={appointment.date}
+                                                time={appointment.time}
+                                                completed={appointment.complete}
+                                            >{appointment.note}</AppointmentCard>
+                                        )
+                        }
 
                     </div>
                 </Section>
             </main>
-
             <Footer />
         </div>
+
     )
 }
 
