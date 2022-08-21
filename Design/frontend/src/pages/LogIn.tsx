@@ -1,9 +1,8 @@
-import React from 'react'
+import React, { useEffect, useContext } from 'react'
 import { FaCheck } from 'react-icons/fa';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
 import * as Yup from 'yup';
-import axios from 'axios';
 import { Formik, Form, Field } from 'formik';
 import { useMutation } from '@tanstack/react-query';
 
@@ -16,7 +15,7 @@ import Footer from '../sections/Footer';
 import HeaderSub from '../sections/HeaderSub';
 import Section from '../sections/Section';
 import { axiosHttpClient } from '../api/api';
-
+import AuthContext from '../contexts/AuthContext';
 
 
 interface MyFormValues {
@@ -26,7 +25,9 @@ interface MyFormValues {
 
 const LogIn = () => {
 
-     const navigate = useNavigate();
+    const navigate = useNavigate();
+    //@ts-ignore
+    const { auth } = useContext(AuthContext);
 
     // object validation form
     const SignInSchema = Yup.object({
@@ -38,20 +39,14 @@ const LogIn = () => {
     const initialValues: MyFormValues = { username: '', password: '' };
 
     const mutation = useMutation(async (login: MyFormValues) => {
-        return await axiosHttpClient.post(`/auth/signin/`, login,
-            // {
-            //     headers: { 'Content-Type': 'application/json' },
-            //     withCredentials: true
-            // }
+        return await axiosHttpClient.post(`/auth/signin/`, login
         );
     },
         ({
-            onSuccess: async (data, variables) => {
-                //  await storage.saveToken(data.data);
-                console.log(data.data);
-                localStorage.setItem('token', JSON.stringify(data.data));
-                navigate("/appointment");
+            onSuccess: async (data) => {
 
+                localStorage.setItem('token', JSON.stringify(data.data));
+                window.location.replace("/appointment");
                 toast.success("You have been successfully logged in!", {
                     position: toast.POSITION.TOP_RIGHT,
                     autoClose: 5000,
@@ -59,6 +54,7 @@ const LogIn = () => {
                     closeOnClick: true,
                     progress: undefined
                 });
+
             },
             onError: (error, variable) => {
                 //@ts-ignore

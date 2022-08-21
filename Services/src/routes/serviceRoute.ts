@@ -8,6 +8,18 @@ router.route("/");
 // .get(authController.verifyUser, authController.checkRole(["normal", "admin"]), serviceController.getAllServicesFromAppointment);
 
 router
+  .route('/')
+  .get(serviceController.getAllAvailableServices);
+
+router
+  .route('/add')
+  .post(
+    authController.verifyUser,
+    authController.checkRole(["admin"]),
+    serviceController.createService
+  );
+
+router
   .route("/:id")
   .get(
     authController.verifyUser,

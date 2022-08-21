@@ -6,6 +6,8 @@ import Section from "../sections/Section";
 
 // Images import
 import img2 from '../assets/images/pexels-service.jpeg';
+import img3 from '../assets/images/Tide-edge-haircut.jpg';
+
 import ImageCard from "../components/ImageCard";
 import Footer from "../sections/Footer";
 
@@ -22,19 +24,13 @@ const Home = () => {
 
             <main className="w-full grow">
 
-                <Section title={"Section 1"}>
+                <Section title={"Best of the Best."}>
 
                     <div className="flex flex-row content-center justify-center mb-[-20px]">
                         <img src={hero} width="350" />
                         <div className="text-justify self-center">
                             <p className="pb-2">
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet
-                                iusto aperiam inventore fugit, illo dolorem laudantium quo magnam
-                                saepe qui. In accusamus quos eum aperiam atque dolor non veniam
-                                accusantium? Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                A nisi repellendus minus ipsum velit quidem. Ad nulla quos recusandae
-                                facilis assumenda. Deserunt hic qui reprehenderit illo id magni
-                                eligendi maiores.
+                                At our barber shop, we can give you the best haircuts and beyond. We only hire the most highly-trained and experienced hair and styling technicians. That means that you can request any type of style you prefer, from short cuts to long hair styling. When you leave, you’ll have more confidence and a strut in your step, because you just got the best haircut and the best service. We believe that we are the best of the best.
                             </p>
                             <Link to={"#"} className="mt-2 hover:text-blue-500">| Read more</Link>
                         </div>
@@ -78,27 +74,17 @@ const Home = () => {
 
                 </Section>
 
-                <Section title={"Cool services"}>
+                <Section title={"Children’s Haircuts"}>
                     <p className="text-justify">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet
-                        iusto aperiam inventore fugit, illo dolorem laudantium quo magnam
-                        saepe qui. In accusamus quos eum aperiam atque dolor non veniam
-                        accusantium? Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        A nisi repellendus minus ipsum velit quidem. Ad nulla quos recusandae
-                        facilis assumenda. Deserunt hic qui reprehenderit illo id magni
-                        eligendi maiores.
+                        We offer children haircuts for all kids ten years of age and younger.
+                        If you’re wondering if your child’s temper will permit a haircut, you can rest easy. Our specialists know how to work with kids. Some kids tolerate haircuts just fine and will sit still, even as the clippers start buzzing. Other kids get upset at the sight of the scissors and the sensation of the hair-styling clippers. You can rest assured that we are experts at providing your child with the best haircut while tending to his or her every need and ensuring a memorable haircut experience.
                     </p>
                 </Section>
 
-                <Section title={"Our services"}>
+                <Section title={"Haircuts & Color"}>
                     <p className="text-justify">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet
-                        iusto aperiam inventore fugit, illo dolorem laudantium quo magnam
-                        saepe qui. In accusamus quos eum aperiam atque dolor non veniam
-                        accusantium? Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        A nisi repellendus minus ipsum velit quidem. Ad nulla quos recusandae
-                        facilis assumenda. Deserunt hic qui reprehenderit illo id magni
-                        eligendi maiores.
+                        Maybe you want to show a unique part of your personality or you want to match a particular outfit. We have hair colors to match any style and preference. Ask your beauty salon expert to have your hair colored and styled just the way you want.
+
                     </p>
                 </Section>
             </main>

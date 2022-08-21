@@ -13,24 +13,9 @@ const About = () => {
 
                 <Section title='Our history'>
                     <p className="text-justify">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet
-                        iusto aperiam inventore fugit, illo dolorem laudantium quo magnam
-                        saepe qui. In accusamus quos eum aperiam atque dolor non veniam
-                        accusantium? Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        A nisi repellendus minus ipsum velit quidem. Ad nulla quos recusandae
-                        facilis assumenda. Deserunt hic qui reprehenderit illo id magni
-                        eligendi maiores.
-                    </p>
+                    It is now possible to give your hair its much-needed makeover at Hair Hassan’s Barbershop. We are a group of expert hair stylists here that provides premium-quality hair cuts services for everyone. Hassan’s Barbershop is not just a brand that we are proud of, but we are also a team that focuses on bringing smiles to our clients through our wide range of services. We at Hassan’s Barbershop want to see your best look. Our goal as a team is to put quality first in our job. That’s why we never compromise our services to ensure that you get what you paid for. Rest assured that your hair will be in good hands the moment our expert hair stylists get a hold of it. And with a wide variety of hair services to choose from, there’s always an option for everyone.
 
-                    <p className="text-justify">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet
-                        iusto aperiam inventore fugit, illo dolorem laudantium quo magnam
-                        saepe qui. In accusamus quos eum aperiam atque dolor non veniam
-                        accusantium? Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        A nisi repellendus minus ipsum velit quidem. Ad nulla quos recusandae
-                        facilis assumenda. Deserunt hic qui reprehenderit illo id magni
-                        eligendi maiores.
-                    </p>
+                    </p>  
                 </Section>
 
             </main>

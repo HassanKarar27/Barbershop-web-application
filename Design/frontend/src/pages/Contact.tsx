@@ -26,6 +26,14 @@ const Contact = () => {
                         <p>Email: shes7@hotmail.com</p>
                     </div>
                 </Section>
+
+                <Section>
+                    <iframe className="w-full"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2967.4801825878417!2d-91.72628888455674!3d41.94702007921669!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87e4f902affbc17d%3A0xdcd546af0923e1ce!2s3110+Michelle+Ct+SW+APT+8%2C+Cedar+Rapids%2C+IA+52404!5e0!3m2!1sen!2sus!4v1563403679065!5m2!1sen!2sus"
+                        width="500"
+                        height="450"></iframe>
+                </Section>
+                
             </main>
             <Footer />
         </div>

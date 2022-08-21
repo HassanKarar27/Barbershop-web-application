@@ -56,6 +56,7 @@ app.use(
 );
 
 const port = 5600;
+
 app.listen(port, SERVER_ADD, () => {
   console.log(`Server is running on port ${port}`);
 });

@@ -11,10 +11,10 @@ const ImageCard: React.FC<IImageCard> = (props) => {
     return (
         <div className="w-full">
             <img src={props.img} width="100%" className={`border-1 object-cover object-center`} />
-            <p>
+            <div>
                 <p className=" font-semibold">{props.title}</p>
                 {props.textPreview}
-            </p>
+            </div>
         </div>
     )
 }

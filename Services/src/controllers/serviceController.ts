@@ -40,7 +40,7 @@ export const addServiceToAppointment = async (
           if (error3) return next({ message: error3 });
           if (result3.length > 0)
             return next({
-              message: "This service is already part of this appointment",
+              message: "This service is already part of this appointment"
             });
 
           db.query(
@@ -51,7 +51,7 @@ export const addServiceToAppointment = async (
               res
                 .status(200)
                 .json({
-                  message: `Service added to the appointment successfully!`,
+                  message: `Service added to the appointment successfully!`
                 });
               next();
             }
@@ -88,7 +88,7 @@ export const deleteServiceAppointment = async (
     (error: QueryError, result: RowDataPacket[]) => {
       if (result.length < 1)
         return next({
-          message: "There is no such service attached to this appointment!",
+          message: "There is no such service attached to this appointment!"
         });
 
       db.query(
@@ -99,7 +99,7 @@ export const deleteServiceAppointment = async (
           res
             .status(200)
             .json({
-              message: `This service has been deleted from this appointment successfully!`,
+              message: `This service has been deleted from this appointment successfully!`
             });
           next();
         }
@@ -121,7 +121,7 @@ export const getAllServicesFromAppointment = async (
 
   if (!appointmentId) return next({ message: "No appointment id sent!" });
 
-  const sql = `select service.name, service.description, service.price, appoints_service.appointment_id
+  const sql = `select service.service_id, service.name, service.description, service.price, service.points, appoints_service.appointment_id
      from service
      inner join appoints_service
      on appoints_service.service_id = service.service_id
@@ -136,4 +136,54 @@ export const getAllServicesFromAppointment = async (
       next();
     }
   );
+};
+
+export const getAllAvailableServices = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction) => {
+
+  const sql = `select * from service order by name`;
+
+  db.query(
+    sql,
+    (error: QueryError, result: RowDataPacket[]) => {
+      if (error) return next({ message: error });
+      res.status(200).json(result);
+      next();
+    }
+  );
+
+};
+
+export const createService = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction) => {
+
+  const { name, description, price, points } = req.body;
+
+  if (!name || !description || !price || !points) return next({ message: "Please fill out all the fields" });
+
+  const sql = `insert into service (name, description, price, points) values (?, ?, ?, ?)`;
+  const checkExistSql = `select * from service where name = ?`;
+
+
+  db.query(
+    checkExistSql, [name], (error: QueryError, result: RowDataPacket[]) => {
+      if (error) return next({ message: error });
+
+      if (result.length > 0) return next({ message: `${name} service already exists!` });
+
+      db.query(
+        sql, [name, description, price, points], (error2: QueryError, result2: RowDataPacket[]) => {
+          if (error2) return next({ message: error2 });
+          res.status(200).json({message: `Service ${name} has been created successfully!`});
+          next();
+        }
+      );
+
+    }
+  );
+
 };

@@ -5,7 +5,7 @@ CREATE TABLE `service`
 (
     `service_id`  int auto_increment,
     `name`        varchar(20),
-    `description` varchar(255),
+    `description` text,
     `price`       decimal(10, 2),
     `points`      int,
     PRIMARY KEY (`service_id`)
@@ -46,6 +46,7 @@ CREATE TABLE `appointment`
     `date`           date,
     `note`          text,
     `user_id`    int,
+    `complete`   boolean default false,
     PRIMARY KEY (`appointment_id`),
     FOREIGN KEY (`user_id`) REFERENCES users (`user_id`)
         on DELETE cascade
